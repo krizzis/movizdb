@@ -37,6 +37,7 @@ exports.getMoviesPage = (req, res, next) => {
         })
         .then(movie => {
           item.title = movie.title;
+          item.slogan = movie.slogan;
           item.imageUrl = movie.imageUrl;
           item.description = movie.description;
           item.rating = movie.rating,
