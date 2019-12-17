@@ -55,11 +55,11 @@ Show.belongsToMany(Genre, {through: ShowGenre});
 
 sequelize
     .sync(
-        {force: true}
-     )
-     .then(() =>{
-         sequelize_fixtures.loadFile(path.join(__dirname, 'data', 'fixtures', '*.json'),sequelize.models);
-     }
+        // {force: true}
+     // )
+     // .then(() =>{
+//         sequelize_fixtures.loadFile(path.join(__dirname, 'data', 'fixtures', '*.json'),sequelize.models);
+  //   }
     )
     .then(result => {
         var user = User.findByPk(1);
