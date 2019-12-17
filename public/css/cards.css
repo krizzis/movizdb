@@ -163,12 +163,16 @@ pointer-events:none;
 }
 
 .card:hover + .title{
-color: white;
-/*font-weight: bolder;*/
-top:100%;
-transform: translate(0, -150px);
--webkit-transform: translate(0,-150px);
-transition-duration: 0.5s;
+  top:100%;
+  color: #4CAF50;
+  /* font-size: 19px; */
+  /* font-weight: bolder; */
+  transition-duration: 0.5s;
+  
+  /* 
+  transform: translate(0, -150px);
+  -webkit-transform: translate(0,-150px); */
+
 }
 
 .image-link {
