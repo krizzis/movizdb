@@ -1,8 +1,14 @@
 
+.grid {
+  min-height: 25vh;
+  position: relative;
+}
+
 .wrapper {
   width: 150px;
+  height: 0px;
   float: left;
-  margin: 0.5rem 0.5rem;
+  margin: 0.1rem 0.5rem;
   align-content: center;
   position: relative;
 }
@@ -10,9 +16,9 @@
 .card {
   width: 150px;
   height: 230px;
-  position: relative;
+  position: absolute;
   display: flex;
-  float: right;
+  float: left;
   transition: 0.4s ease-out;
   box-shadow: 0px 7px 10px rgba(0, 0, 0, 0.5);
   margin: 0 auto;
@@ -144,35 +150,28 @@ outline: none;
 .title {
 font-family: "Open Sans";
 font-size: 16px;
-color: black;
+color: transparent;
 font-weight: bold;
 word-wrap: break-word;
 width: 100%;
-height: 50px;
+height: 230px;
 clear:both;
-margin: 0 auto;
-padding-top: 1rem;
+margin: 5 auto;
+padding: auto;
 text-align: center;
 z-index: 0;
 position: relative;
-top: 100%;
-transform: translate(0, 0px);
--webkit-transform: translate(0,0px);
 transition-duration: 0.5s;
 pointer-events:none;
+display: flex;
+align-items: center;
+justify-content: center;
 }
 
 .card:hover + .title{
   top:100%;
-  color: #4CAF50;
-  /* font-size: 19px; */
-  /* font-weight: bolder; */
+  color: white;
   transition-duration: 0.5s;
-  
-  /* 
-  transform: translate(0, -150px);
-  -webkit-transform: translate(0,-150px); */
-
 }
 
 .image-link {

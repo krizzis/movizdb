@@ -55,20 +55,31 @@ Show.belongsToMany(Genre, {through: ShowGenre});
 
 sequelize
     .sync(
-        // {force: true}
+        {force: true}
      )
-     .then(() =>{
-        // sequelize_fixtures.loadFile(path.join(__dirname, 'data', 'fixtures', '*.json'),sequelize.models);
-    }
-    )
+    //  .then(() =>{
+    //     // sequelize_fixtures.loadFile(path.join(__dirname, 'data', 'fixtures', '*.json'),sequelize.models);
+    // }
+    // )
     .then(result => {
-        var user = User.findByPk(1);
-        return user;
+        return User.findByPk(1);
     })
     .then(user => {
-        // return user.createFavorite();
+        if (user) {
+            console.log("User: " + user)
+            return user;
+        }
+        else
+            return User.create({
+                id: 1,
+                username: 'admin',
+                email: 'admin@moviz.com'
+            })
     })
     .then(user => {
+        return user.createFavorite();
+    })
+    .then(favorite => {
         app.listen(process.env.PORT || 3000);
     })    
     .catch(err => {
