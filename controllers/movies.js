@@ -4,11 +4,7 @@ const Favorite = require('../models/fav');
 const admin = 0;
 
 exports.getMoviesPage = (req, res, next) => {
-    Movie.findAll({ include: [ {
-              model: Favorite,
-              where: {userId: req.user.id},
-              required:false
-    } ] })
+    Movie.findAll()
       .then(movies => {
         // console.log(JSON.stringify(movies))
         res.render('movies/movies', {

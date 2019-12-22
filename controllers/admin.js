@@ -1,8 +1,11 @@
 const Movie = require('../models/movie');
 const Show = require('../models/show');
 const Genre = require('../models/genre');
+const Person = require('../models/person');
 
 const superagent = require('superagent');
+
+const apiKey = '7b3e52648db3d7870c421ac2f639f6a3';
 
 // exports.getAdminPage = (req, res, next) => {
 //     res.render('./admin/dashboard', {
@@ -34,10 +37,7 @@ exports.getAdminPage = (req, res, next) => {
 //   };
 // };
 
-exports.postNewItem = (req, res, next) => {
-  const apiKey = '7b3e52648db3d7870c421ac2f639f6a3';
-  
-
+exports.postNewMovieApi = (req, res, next) => {
   superagent.get('https://api.themoviedb.org/3/movie/' + req.body.id)
     .query({ api_key: apiKey})
     .end((err, res) => {
@@ -74,9 +74,60 @@ exports.postNewItem = (req, res, next) => {
       })
       .then((movie) => 
         {
-          console.log(movie.title);
           res.body.genres.forEach(genre => {
             movie.addGenre(genre.id)
+          })
+        }
+      )
+      .then(getCredits(res.body.id))
+      .catch(err=>{
+        console.log(err
+      )})
+      );
+});
+
+  res.redirect('/admin');
+}
+
+exports.postNewShowApi = (req, res, next) => {
+  superagent.get('https://api.themoviedb.org/3/tv/' + req.body.id)
+    .query({ api_key: apiKey})
+    .end((err, res) => {
+      if (err) { return console.log(err); }
+
+      const arr = res.body.genres;
+
+      Genre.bulkCreate(arr,
+        {
+          updateOnDuplicate:["name"]
+         })
+      .then(
+
+      Show.findByPk(res.body.id).then(show=> {
+        if (show) {
+          return show
+        }
+        else {
+          return Show.create({
+            id: res.body.id,
+            title: res.body.name,
+            imageUrl: 'https://image.tmdb.org/t/p/w600_and_h900_bestv2' + res.body.poster_path,
+            status: res.body.status,
+            year_started: res.body.first_air_date.substr(0,4),
+            year_finished: res.body.last_air_date.substr(0,4),
+            seasons: res.body.number_of_seasons,
+            episodes: res.body.number_of_episodes,
+            language: res.body.original_language,
+            runtime: res.body.episode_run_time,
+            description: res.body.overview,
+            rating: res.body.vote_average*10
+          })
+        }
+      })
+      .then((show) => 
+        {
+          res.body.genres.forEach(genre => {
+            show.addGenre(genre.id)
           })
         }
       )
@@ -87,7 +138,7 @@ exports.postNewItem = (req, res, next) => {
 });
 
   res.redirect('/admin');
-}
+};
 
 exports.getMovieEditPage = (req, res, next) => {
   const id = req.params.itemId;
@@ -164,4 +215,49 @@ exports.postDeleteShow = (req, res, next) =>{
   const itemId = req.params.itemId;
   Show.destroy({where: {id: itemId}});
   res.redirect('/');
+}
+
+function getCredits(id) {
+  superagent.get('https://api.themoviedb.org/3/movie/' + id + '/credits')
+  .query({ api_key: apiKey})
+  .end((err, res) => {
+    let cast = limitCast(res.body);
+    cast.forEach(p => {
+      checkAndCreatePerson(p);
+    })
+  })
+};
+
+function limitCast(body) {
+  let res = [];
+  res.push(body.crew.find(c => c.job === 'Director'))
+  let arr = body.cast.slice(0,5);
+  arr.forEach(i => {
+    res.push(i);
+  })
+  return res;
+}
+
+function checkAndCreatePerson (p) {
+  superagent.get('https://api.themoviedb.org/3/person/' + p.id)
+  .query({ api_key: apiKey})
+  .end((err, res) => {
+    Person.findOrCreate({
+    where: {id: p.id},
+    defaults: {
+      id: p.id,
+      fullname: res.body.name,
+      imageUrl: 'https://image.tmdb.org/t/p/w600_and_h900_bestv2' + p.profile_path,
+      gender: p.gender === 2 ? "Male" : "Female",
+      birthday: res.body.birthday,
+      birthplace: res.body.place_of_birth,
+      deathday: res.body.deathday,
+      description: res.body.description,
+      role: res.body.known_for_department,
+      homepage: res.body.homepage
+    }
+  })
+  .then()
+  .catch(err => {console.log(err)});
+  })
 }

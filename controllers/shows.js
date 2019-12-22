@@ -43,6 +43,7 @@ const admin = 0;
             {key: "Started", value: show.year_started},
             {key: "Finished", value: show.year_started},
             {key: "Seasons", value: show.seasons},
+            {key: "Episodes", value: show.episodes},
             {key: "Original language", value: show.language},
             {key: "Runtime", value: Math.floor(show.duration/60) + "h " + show.duration%60 + "m"},
           ]

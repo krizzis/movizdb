@@ -35,7 +35,7 @@
     align-items: center; 
 }
 
-.cast-wrapper {
+.cast-wrapper, .credit-wrapper {
     width: 70%;
     min-height: 20vh;
     float: left;

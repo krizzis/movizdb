@@ -5,6 +5,7 @@ const router = express.Router();
 const itemsController = require('../controllers/items');
 const movieController = require('../controllers/movies');
 const showController = require('../controllers/shows');
+const personController = require('../controllers/persons');
 
 router.get('/', itemsController.getHomePage);
 
@@ -18,7 +19,8 @@ router.get('/show/:itemId', showController.getShowDetailsPage);
 router.post('/show/:itemId/favorite', showController.postFavoriteShow);
 
 
-router.get('/persons', itemsController.getPersonsPage);
+router.get('/persons', personController.getPersonsPage);
+router.get('/persons/:itemId', personController.getPersonDetailsPage);
 
 router.get('/favorite', itemsController.getFavorite);
 

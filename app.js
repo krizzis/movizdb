@@ -12,6 +12,7 @@ const FavoriteShow = require('./models/fav-show');
 const Genre = require('./models/genre');
 const MovieGenre = require('./models/movie-genre');
 const ShowGenre = require('./models/show-genre');
+const Person = require('./models/person');
 
 const app = express();
 const sequelize_fixtures = require('sequelize-fixtures');
@@ -55,7 +56,7 @@ Show.belongsToMany(Genre, {through: ShowGenre});
 
 sequelize
     .sync(
-        {force: true}
+        // {force: true}
      )
     //  .then(() =>{
     //     // sequelize_fixtures.loadFile(path.join(__dirname, 'data', 'fixtures', '*.json'),sequelize.models);
@@ -66,7 +67,6 @@ sequelize
     })
     .then(user => {
         if (user) {
-            console.log("User: " + user)
             return user;
         }
         else

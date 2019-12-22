@@ -2,7 +2,6 @@ extends ../layouts/nav.pug
 
 block styles
     link(rel="stylesheet", href="/css/details.css")
-    link(rel="stylesheet", href="/css/stars.css")
 
 block content
     .details-wrapper
@@ -19,21 +18,6 @@ block content
                             span #{item.title}
                             br
                             span.slogan  #{item.slogan}
-                if item.genres
-                    .genres
-                        each genre in item.genres
-                            .genre
-                                span #{genre}
-                if item.rating
-                    .raiting
-                        .container
-                            .progress
-                                -var pr = item.rating ? item.rating : 0;
-                                -var fm = pr <= 20 ? 0 : pr <= 40 ? 60 : pr <= 60 ? 120 : pr <= 80 ? 180 : 240;
-                                -var sl = pr <= 60 ? 240 : pr <= 80 ? 120 : 0;
-                                -var sm = pr <= 20 ? 60 : pr <= 40 ? 120 : 240;
-                                .progress-bar(style=("--rating: " + pr + "; --fm: " + fm + "; --sl:" + sl + "; --sm:" + sm))
-                                    p #{item.rating}
                 .header-info
                     if item.description
                         h3 Overview
@@ -52,8 +36,8 @@ block content
                     h3
                         i No know data!
                                                   
-    .cast-wrapper
-        h3 Cast and crew
+    .credit-wrapper
+        h3 Known for
         hr
         .cast-cell
             if item.cast && item.cast.length > 0
@@ -67,4 +51,4 @@ block content
                             .position
                                 p #{person.position}
             else
-                h1 No known crew members
+                h1 No any known credits

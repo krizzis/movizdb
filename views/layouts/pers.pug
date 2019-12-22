@@ -1,0 +1,18 @@
+if persons && persons.length > 0
+    .grid
+        each person in persons
+            .wrapper
+                .card
+                    a.image-link(href="/persons/" + person.id)
+                    if person.imageUrl
+                        img.card-image(src=person.imageUrl)
+                    else
+                        img.card-image(src="../img/poster-placeholder.png")
+                    if isAdmin
+                        .pen
+                            a(href="/admin/persons/" + person.id + "/edit")
+                        form(action="/admin/persons/" + person.id + "/delete/" , method="POST")
+                            button.trash
+                .title #{person.fullname}
+else
+    h1 No one have been added yet!
