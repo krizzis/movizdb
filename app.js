@@ -56,7 +56,7 @@ Show.belongsToMany(Genre, {through: ShowGenre});
 
 sequelize
     .sync(
-        // {force: true}
+        {force: true}
      )
     //  .then(() =>{
     //     // sequelize_fixtures.loadFile(path.join(__dirname, 'data', 'fixtures', '*.json'),sequelize.models);

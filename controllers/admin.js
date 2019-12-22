@@ -79,7 +79,9 @@ exports.postNewMovieApi = (req, res, next) => {
           })
         }
       )
-      .then(getCredits(res.body.id))
+      .then(
+        getCreditsMovie(res.body.id)
+      )
       .catch(err=>{
         console.log(err
       )})
@@ -131,6 +133,9 @@ exports.postNewShowApi = (req, res, next) => {
           })
         }
       )
+      .then(
+        getCreditsShow(res.body.id)
+      )      
       .catch(err=>{
         console.log(err
       )})
@@ -217,7 +222,7 @@ exports.postDeleteShow = (req, res, next) =>{
   res.redirect('/');
 }
 
-function getCredits(id) {
+function getCreditsMovie(id) {
   superagent.get('https://api.themoviedb.org/3/movie/' + id + '/credits')
   .query({ api_key: apiKey})
   .end((err, res) => {
@@ -228,10 +233,25 @@ function getCredits(id) {
   })
 };
 
+function getCreditsShow(id) {
+  superagent.get('https://api.themoviedb.org/3/tv/' + id + '/credits')
+  .query({ api_key: apiKey})
+  .end((err, res) => {
+    let cast = limitCast(res.body);
+    console.log(cast);
+    cast.forEach(p => {
+      checkAndCreatePerson(p);
+    })
+  })
+};
+
 function limitCast(body) {
   let res = [];
-  res.push(body.crew.find(c => c.job === 'Director'))
-  let arr = body.cast.slice(0,5);
+  let dir = body.crew.find(c => c.job === 'Director');
+  if (dir){
+    res.push()
+  }
+  let arr = body.cast.slice(0, dir ? 5: 6);
   arr.forEach(i => {
     res.push(i);
   })
@@ -252,7 +272,7 @@ function checkAndCreatePerson (p) {
       birthday: res.body.birthday,
       birthplace: res.body.place_of_birth,
       deathday: res.body.deathday,
-      description: res.body.description,
+      description: res.body.biography,
       role: res.body.known_for_department,
       homepage: res.body.homepage
     }
