@@ -237,7 +237,6 @@ function getCreditsMovie(id) {
     Movie.findByPk(id).then(movie => {
       cast.forEach(p => {
         checkAndCreatePerson(p);
-        // console.log(p);
         movie.addPerson(p.id, {through: {job: p.job, character: p.character}});
       })
     })
