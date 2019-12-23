@@ -54,7 +54,12 @@ Favorite.belongsToMany(Show, {through: FavoriteShow});
 Show.belongsToMany(Favorite, {through: FavoriteShow});
 Movie.belongsToMany(Genre, {through: MovieGenre});
 Show.belongsToMany(Genre, {through: ShowGenre});
-Movie.belongsToMany(Person, {through: Cast});
+Show.belongsToMany(Person, {through: {model: Cast, unique: false}});
+Movie.belongsToMany(Person, {through: {model: Cast, unique: false}});
+Person.belongsToMany(Show, {through: {model: Cast, unique: false}});
+Person.belongsToMany(Movie, {through: {model: Cast, unique: false}});
+
+
 
 sequelize
     .sync(

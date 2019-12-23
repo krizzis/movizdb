@@ -33,30 +33,43 @@ const admin = 0;
           return show
         })
         .then(show => {
-          item.title = show.title;
-          item.imageUrl = show.imageUrl;
-          item.description = show.description;
-          item.rating = show.rating,
-          item.genres = show.genres
-          item.summary = [
-            {key: "Status", value: show.status},
-            {key: "Started", value: show.year_started},
-            {key: "Finished", value: show.year_started},
-            {key: "Seasons", value: show.seasons},
-            {key: "Episodes", value: show.episodes},
-            {key: "Original language", value: show.language},
-            {key: "Runtime", value: Math.floor(show.duration/60) + "h " + show.duration%60 + "m"},
-          ]
-          res.render('./layouts/item-details', {
-            "pageTitle": item.title,
-            "menu": "shows",
-            "title": item.title,
-            "item": item
-          });
-        })
+          castList =
+          show.getPeople()
+            .then(people => {
+              show.cast = []
+              people.forEach(i => {
+                show.cast.push({id: i.id, cast_id: i.cast.cast_id, name: i.fullname, photo: i.imageUrl, position: i.cast.job ? i.cast.job : i.cast.character})
+              })
+              show.cast.sort((a, b) => a.cast_id - b.cast_id);
+              return show
+            })
+              .then(show => {
+                item.title = show.title;
+                item.imageUrl = show.imageUrl;
+                item.description = show.description;
+                item.rating = show.rating,
+                item.genres = show.genres
+                item.summary = [
+                  {key: "Status", value: show.status},
+                  {key: "Started", value: show.year_started},
+                  {key: "Finished", value: show.year_started},
+                  {key: "Seasons", value: show.seasons},
+                  {key: "Episodes", value: show.episodes},
+                  {key: "Original language", value: show.language},
+                  {key: "Runtime", value: Math.floor(show.duration/60) + "h " + show.duration%60 + "m"},
+                ],
+                item.cast = show.cast
+                res.render('./layouts/item-details', {
+                  "pageTitle": item.title,
+                  "menu": "shows",
+                  "title": item.title,
+                  "item": item
+                });
+              })
         .catch(err => {
           console.log(err);
         });
+      });
     });
   };
 

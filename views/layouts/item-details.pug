@@ -58,10 +58,10 @@ block content
         .cast-cell
             if item.cast && item.cast.length > 0
                 each person in item.cast
-    
                         .cast-item
                             .photo
-                                img(src=person.photo)
+                                a(href="/persons/" + person.id)
+                                    img(src=person.photo)
                             .name
                                 p #{person.name}
                             .position

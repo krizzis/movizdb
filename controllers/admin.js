@@ -255,15 +255,38 @@ function getCreditsMovie(id) {
 };
 
 function getCreditsShow(id) {
-  let cast = [];
   superagent.get('https://api.themoviedb.org/3/tv/' + id + '/credits')
   .query({ api_key: apiKey})
   .end((err, res) => {
     cast = limitCast(res.body);
     cast.forEach(p => {
-      checkAndCreatePerson(p);
-    })
+      p.cast_index = cast.indexOf(p);
+      superagent.get('https://api.themoviedb.org/3/person/' + p.id)
+      .query({ api_key: apiKey})
+      .end((err, res) => {
+        Person.findOrCreate({
+        where: {id: p.id},
+        defaults: {
+          id: p.id,
+          fullname: res.body.name,
+          imageUrl: 'https://image.tmdb.org/t/p/w600_and_h900_bestv2' + p.profile_path,
+          gender: p.gender === 2 ? "Male" : "Female",
+          birthday: res.body.birthday,
+          birthplace: res.body.place_of_birth,
+          deathday: res.body.deathday,
+          description: res.body.biography,
+          role: res.body.known_for_department,
+          homepage: res.body.homepage
+        }
+      })
+      .then(
+        Show.findByPk(id).then(show => {
+          return show.addPerson(p.id, {through: {job: p.job, character: p.character, cast_id: p.cast_index}});
+      })
+    )
   })
+})
+})
 };
 
 function limitCast(body) {

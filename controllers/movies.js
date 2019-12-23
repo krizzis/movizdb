@@ -38,10 +38,10 @@ exports.getMoviesPage = (req, res, next) => {
             .then(people => {
               movie.cast = []
               people.forEach(i => {
-                movie.cast.push({id: i.cast.cast_id, name: i.fullname, photo: i.imageUrl, position: i.cast.job ? i.cast.job : i.cast.character})
+                movie.cast.push({id: i.id, cast_id: i.cast.cast_id, name: i.fullname, photo: i.imageUrl, position: i.cast.job ? i.cast.job : i.cast.character})
               })
-              movie.cast.sort((a, b) => a.id - b.id);
-              console.log(movie.cast);
+              movie.cast.sort((a, b) => a.cast_id - b.cast_id);
+              console.log(movie.cast)
               return movie
             })
               .then(movie => {

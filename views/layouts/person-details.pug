@@ -41,14 +41,12 @@ block content
         hr
         .cast-cell
             if item.cast && item.cast.length > 0
-                each person in item.cast
-    
+                each screen in item.cast
                         .cast-item
                             .photo
-                                img(src=person.photo)
+                                a(href="/" + screen.type + "/" + screen.id)
+                                    img(src=screen.poster)
                             .name
-                                p #{person.name}
-                            .position
-                                p #{person.position}
+                                p #{screen.title}
             else
                 h1 No any known credits

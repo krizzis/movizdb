@@ -41,6 +41,11 @@
     float: left;
 }
 
+.photo:hover{
+    transform: scale(1.03);
+    transition: 0.4s ease-out;
+}
+
 
 .poster{
     display: flex;
@@ -164,6 +169,8 @@ p {
 
 .name p {
     margin-bottom: 0px;
+    word-wrap: wrap;
+    width: 150px;
 }
 
 .position p {
