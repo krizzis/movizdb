@@ -13,6 +13,7 @@ const Genre = require('./models/genre');
 const MovieGenre = require('./models/movie-genre');
 const ShowGenre = require('./models/show-genre');
 const Person = require('./models/person');
+const Cast = require('./models/cast');
 
 const app = express();
 const sequelize_fixtures = require('sequelize-fixtures');
@@ -53,10 +54,11 @@ Favorite.belongsToMany(Show, {through: FavoriteShow});
 Show.belongsToMany(Favorite, {through: FavoriteShow});
 Movie.belongsToMany(Genre, {through: MovieGenre});
 Show.belongsToMany(Genre, {through: ShowGenre});
+Movie.belongsToMany(Person, {through: Cast});
 
 sequelize
     .sync(
-        {force: true}
+        // {force: true}
      )
     //  .then(() =>{
     //     // sequelize_fixtures.loadFile(path.join(__dirname, 'data', 'fixtures', '*.json'),sequelize.models);
