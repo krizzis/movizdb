@@ -8,6 +8,7 @@ const Cast = sequelize.define('cast', {
         allowNull: false,
         primaryKey: true
     },
+    cast_id: Sequelize.INTEGER,
     job: Sequelize.STRING,
     character: Sequelize.STRING
 });

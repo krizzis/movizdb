@@ -42,9 +42,7 @@ exports.postNewMovieApi = (req, res, next) => {
     .query({ api_key: apiKey})
     .end((err, res) => {
       if (err) { return console.log(err); }
-
       const arr = res.body.genres;
-
       Genre.bulkCreate(arr,
         {
           updateOnDuplicate:["name"]
@@ -73,19 +71,13 @@ exports.postNewMovieApi = (req, res, next) => {
         }
       })
       .then((movie) => 
-        {
+        { 
           res.body.genres.forEach(genre => {
             movie.addGenre(genre.id)
           })
           return movie
         }
       )
-      // .then(movie => {
-      //   let cast = getCreditsMovie(movie.id);
-      //   cast.forEach(c => {
-      //     movie.addPerson(c.id)
-      //   })
-      // })
       .then(
         getCreditsMovie(res.body.id)
       )    
@@ -156,8 +148,6 @@ exports.getMovieEditPage = (req, res, next) => {
   const id = req.params.itemId;
   Movie.findByPk(id)
     .then(item => {
-      console.log(item);
-      console.log(item.id);
       item.type="movies";
       res.render('./admin/edit-item', {
         "pageTitle": item.title,
@@ -234,13 +224,34 @@ function getCreditsMovie(id) {
   .query({ api_key: apiKey})
   .end((err, res) => {
     cast = limitCast(res.body);
-    Movie.findByPk(id).then(movie => {
-      cast.forEach(p => {
-        checkAndCreatePerson(p);
-        movie.addPerson(p.id, {through: {job: p.job, character: p.character}});
+    cast.forEach(p => {
+      p.cast_index = cast.indexOf(p);
+      superagent.get('https://api.themoviedb.org/3/person/' + p.id)
+      .query({ api_key: apiKey})
+      .end((err, res) => {
+        Person.findOrCreate({
+        where: {id: p.id},
+        defaults: {
+          id: p.id,
+          fullname: res.body.name,
+          imageUrl: 'https://image.tmdb.org/t/p/w600_and_h900_bestv2' + p.profile_path,
+          gender: p.gender === 2 ? "Male" : "Female",
+          birthday: res.body.birthday,
+          birthplace: res.body.place_of_birth,
+          deathday: res.body.deathday,
+          description: res.body.biography,
+          role: res.body.known_for_department,
+          homepage: res.body.homepage
+        }
       })
-    })
-  });
+      .then(
+        Movie.findByPk(id).then(movie => {
+          return movie.addPerson(p.id, {through: {job: p.job, character: p.character, cast_id: p.cast_index}});
+      })
+    )
+  })
+})
+})
 };
 
 function getCreditsShow(id) {
@@ -249,7 +260,6 @@ function getCreditsShow(id) {
   .query({ api_key: apiKey})
   .end((err, res) => {
     cast = limitCast(res.body);
-    console.log(cast);
     cast.forEach(p => {
       checkAndCreatePerson(p);
     })
@@ -267,28 +277,4 @@ function limitCast(body) {
     res.push(i);
   })
   return res;
-}
-
-function checkAndCreatePerson (p) {
-  superagent.get('https://api.themoviedb.org/3/person/' + p.id)
-  .query({ api_key: apiKey})
-  .end((err, res) => {
-    Person.findOrCreate({
-    where: {id: p.id},
-    defaults: {
-      id: p.id,
-      fullname: res.body.name,
-      imageUrl: 'https://image.tmdb.org/t/p/w600_and_h900_bestv2' + p.profile_path,
-      gender: p.gender === 2 ? "Male" : "Female",
-      birthday: res.body.birthday,
-      birthplace: res.body.place_of_birth,
-      deathday: res.body.deathday,
-      description: res.body.biography,
-      role: res.body.known_for_department,
-      homepage: res.body.homepage
-    }
-  })
-  .catch(err => {console.log(err)});
-  })
-  return p;
 }

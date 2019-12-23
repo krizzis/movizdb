@@ -1,5 +1,6 @@
 const Movie = require('../models/movie');
 const Persons = require('../models/person');
+const Cast = require('../models/cast');
 
 const admin = 0;
 
@@ -33,13 +34,14 @@ exports.getMoviesPage = (req, res, next) => {
         })
         .then(movie => {
           castList =
-          movie.getPeople({through: ["job"]})
+          movie.getPeople()
             .then(people => {
               movie.cast = []
               people.forEach(i => {
-                console.log(i.id);
-                movie.cast.push({name: i.fullname, photo: i.imageUrl, position: i.cast.job ? i.cast.job : i.cast.character})
+                movie.cast.push({id: i.cast.cast_id, name: i.fullname, photo: i.imageUrl, position: i.cast.job ? i.cast.job : i.cast.character})
               })
+              movie.cast.sort((a, b) => a.id - b.id);
+              console.log(movie.cast);
               return movie
             })
               .then(movie => {
