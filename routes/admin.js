@@ -7,7 +7,8 @@ const adminController =  require("../controllers/admin");
 const router = express.Router();
 
 router.get('/', adminController.getAdminPage);
-router.post('/add-movie', adminController.postNewItem);
+router.post('/add-movie', adminController.postNewMovieApi);
+router.post('/add-show', adminController.postNewShowApi);
 
 router.get('/movie/:itemId/edit', adminController.getMovieEditPage);
 router.post('/movie/:itemId/', adminController.postEditedMovie);

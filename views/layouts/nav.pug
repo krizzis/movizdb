@@ -12,8 +12,8 @@ block nav
             li
                 a(href="/shows" class=(menu==='shows' ? 'active' : "")) TV shows
             li
-                //- a(href="/persons" class=(menu==='persons' ? 'active' : "")) People
-                a.isDisabled People
+                a(href="/persons" class=(menu==='persons' ? 'active' : "")) People
+                //- a.isDisabled People
             li(class=(isAdmin===1 ? "hide" : ""))
                 a(href="/favorite" class=(menu==='favorite' ? 'active' : "")) Favorite
             li.right

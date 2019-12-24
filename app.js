@@ -12,6 +12,8 @@ const FavoriteShow = require('./models/fav-show');
 const Genre = require('./models/genre');
 const MovieGenre = require('./models/movie-genre');
 const ShowGenre = require('./models/show-genre');
+const Person = require('./models/person');
+const Cast = require('./models/cast');
 
 const app = express();
 const sequelize_fixtures = require('sequelize-fixtures');
@@ -52,23 +54,39 @@ Favorite.belongsToMany(Show, {through: FavoriteShow});
 Show.belongsToMany(Favorite, {through: FavoriteShow});
 Movie.belongsToMany(Genre, {through: MovieGenre});
 Show.belongsToMany(Genre, {through: ShowGenre});
+Show.belongsToMany(Person, {through: {model: Cast, unique: false}});
+Movie.belongsToMany(Person, {through: {model: Cast, unique: false}});
+Person.belongsToMany(Show, {through: {model: Cast, unique: false}});
+Person.belongsToMany(Movie, {through: {model: Cast, unique: false}});
+
+
 
 sequelize
     .sync(
-        {force: true}
+        // {force: true}
      )
-     .then(() =>{
-        // sequelize_fixtures.loadFile(path.join(__dirname, 'data', 'fixtures', '*.json'),sequelize.models);
-    }
-    )
+    //  .then(() =>{
+    //     // sequelize_fixtures.loadFile(path.join(__dirname, 'data', 'fixtures', '*.json'),sequelize.models);
+    // }
+    // )
     .then(result => {
-        var user = User.findByPk(1);
-        return user;
+        return User.findByPk(1);
     })
     .then(user => {
-        // return user.createFavorite();
+        if (user) {
+            return user;
+        }
+        else
+            return User.create({
+                id: 1,
+                username: 'admin',
+                email: 'admin@moviz.com'
+            })
     })
     .then(user => {
+        return user.createFavorite();
+    })
+    .then(favorite => {
         app.listen(process.env.PORT || 3000);
     })    
     .catch(err => {

@@ -1,14 +1,11 @@
 const Movie = require('../models/movie');
-const Favorite = require('../models/fav');
+const Persons = require('../models/person');
+const Cast = require('../models/cast');
 
 const admin = 0;
 
 exports.getMoviesPage = (req, res, next) => {
-    Movie.findAll({ include: [ {
-              model: Favorite,
-              where: {userId: req.user.id},
-              required:false
-    } ] })
+    Movie.findAll()
       .then(movies => {
         // console.log(JSON.stringify(movies))
         res.render('movies/movies', {
@@ -36,30 +33,44 @@ exports.getMoviesPage = (req, res, next) => {
           return movie
         })
         .then(movie => {
-          item.title = movie.title;
-          item.imageUrl = movie.imageUrl;
-          item.description = movie.description;
-          item.rating = movie.rating,
-          item.genres = movie.genres
-          item.summary = [
-            {key: "Status", value: movie.status},
-            {key: "Release Date", value: movie.release_date},
-            {key: "Original language", value: movie.language},
-            {key: "Duration", value: Math.floor(movie.duration/60) + "h " + movie.duration%60 + "m"},
-            {key: "Budget", value: movie.budget? "$ " + movie.budget.toLocaleString(): null},
-            {key: "Revenue", value: movie.budget? "$ " + movie.revenue.toLocaleString(): null}
-          ]
-          res.render('./layouts/item-details', {
-            "pageTitle": item.title,
-            "menu": "movies",
-            "title": item.title,
-            "item": item
-          });
+          castList =
+          movie.getPeople()
+            .then(people => {
+              movie.cast = []
+              people.forEach(i => {
+                movie.cast.push({id: i.id, cast_id: i.cast.cast_id, name: i.fullname, photo: i.imageUrl, position: i.cast.job ? i.cast.job : i.cast.character})
+              })
+              movie.cast.sort((a, b) => a.cast_id - b.cast_id);
+              return movie
+            })
+              .then(movie => {
+                item.title = movie.title;
+                item.slogan = movie.slogan;
+                item.imageUrl = movie.imageUrl;
+                item.description = movie.description;
+                item.rating = movie.rating,
+                item.genres = movie.genres
+                item.summary = [
+                  {key: "Status", value: movie.status},
+                  {key: "Release Date", value: movie.release_date},
+                  {key: "Original language", value: movie.language},
+                  {key: "Duration", value: Math.floor(movie.duration/60) + "h " + movie.duration%60 + "m"},
+                  {key: "Budget", value: movie.budget? "$ " + movie.budget.toLocaleString(): null},
+                  {key: "Revenue", value: movie.budget? "$ " + movie.revenue.toLocaleString(): null}
+                ],
+                item.cast = movie.cast
+                res.render('./layouts/item-details', {
+                  "pageTitle": item.title,
+                  "menu": "movies",
+                  "title": item.title,
+                  "item": item
+                });
         })
         .catch(err => {
           console.log(err);
         });
-    });
+      })
+    })
   };
 
   exports.postFavoriteMovie = (req, res, next) => {
@@ -83,6 +94,7 @@ exports.getMoviesPage = (req, res, next) => {
             return fetchedFavorites.addMovie(item);
           })
           .catch(err => {
+            console.log(err)
           })
       })
       .then(() => {

@@ -17,10 +17,12 @@ const Show = sequelize.define('show', {
     year_started: Sequielize.INTEGER,
     year_finished: Sequielize.INTEGER,
     seasons: Sequielize.INTEGER,
+    episodes: Sequielize.INTEGER,
     language: Sequielize.STRING,
     runtime: Sequielize.INTEGER,
     description: Sequielize.TEXT,
-    rating: Sequielize.DOUBLE   
+    rating: Sequielize.DOUBLE,
+    homepage: Sequielize.STRING
 });
 
 module.exports = Show;

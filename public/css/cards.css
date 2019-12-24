@@ -1,58 +1,53 @@
+.grid-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: flex-start;
+}
 
-.wrapper {
-  width: 150px;
-  float: left;
-  margin: 0.5rem 0.5rem;
-  align-content: center;
-  position: relative;
+.card-wrapper{
+  margin: 10px;
+  cursor: pointer;
+}
+
+.card-wrapper:hover > .card {
+  transform: scale(1.05);
+}
+
+.card-wrapper:hover > .card img {
+  filter: brightness(30%);
+}
+
+.card-wrapper:hover > .title {
+  color: green;
 }
 
 .card {
   width: 150px;
   height: 230px;
-  position: relative;
-  display: flex;
-  float: right;
-  transition: 0.4s ease-out;
   box-shadow: 0px 7px 10px rgba(0, 0, 0, 0.5);
-  margin: 0 auto;
-  left: 0;
-  top: 0;
+  transition: 0.4s ease-out;
 }
-.card:hover {
-  transform: scale(1.05);
+
+.card img { 
+  height: 100%;
 }
+
 .card:hover:before {
   opacity: 1;
 }
 .card:hover .info {
   opacity: 1;
 }
-.card:before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: block;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 2;
-  transition: 0.5s;
-  opacity: 0;
-}
-.card .card-image {
-  width: 100%;
-  height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
 
-.card .card-image:hover {
-    opacity: 0.3;
+.title {
+  text-align: center;
+  margin-top: 10px;
+  width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .card:hover .pen, 
@@ -62,17 +57,6 @@
   transition: 1s;
   opacity: 1;
   z-index: 999;
-}
-
-.pen {
-width: 20px;
-height: 20px;
-position: absolute;
-opacity: 0;
-right: 15px;
-top: 15px;
-background-image: url("/img/wpen.png");
-background-size: contain;
 }
 
 .bookmark, .bookmark-checked {
@@ -85,99 +69,50 @@ background-size: contain;
   background-size: contain;
   }
 
-.trash, .bookmark, .bookmark-checked {
-width: 20px;
-height: 20px;
-opacity: 0;
-background: none;
-background-size: contain;
-border: none;
-padding: 0 0;
-outline: none;
-}
+  .trash, .bookmark, .bookmark-checked {
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+    background: none;
+    background-size: contain;
+    border: none;
+    padding: 0 0;
+    outline: none;
+    }
 
-.trash {
-  position: absolute;
-  left: 15px;
-  top: 15px;
-  background-image: url("/img/wtrash.png");
-}
+    .bookmark {
+      background-image: url("/img/wbook.png");
+    }
+    
+    .bookmark-checked {
+      background-image: url("/img/gbook.png");
+    }
 
-.bookmark {
-  background-image: url("/img/wbook.png");
-}
-
-.bookmark-checked {
-  background-image: url("/img/gbook.png");
-}
-
-
-.trash:hover {
-  cursor: pointer;
-  background-image: url("/img/rtrash.png");
-}
-
-.pen:hover{
-  background-image: url("/img/gpen.png");
-}
-
-.bookmark:hover{
-  cursor: pointer;
-  background-image: url("/img/gbook.png");
-}
-
-.bookmark-checked:hover{
-  cursor: pointer;
-  background-image: url("/img/wbook.png");
-}
-
-.trash a, 
-.pen a, 
-.bookmark a,
-.bookmark-checked a {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  z-index: 99999;
-}
-
-.title {
-font-family: "Open Sans";
-font-size: 16px;
-color: black;
-font-weight: bold;
-word-wrap: break-word;
-width: 100%;
-height: 50px;
-clear:both;
-margin: 0 auto;
-padding-top: 1rem;
-text-align: center;
-z-index: 0;
-position: relative;
-top: 100%;
-transform: translate(0, 0px);
--webkit-transform: translate(0,0px);
-transition-duration: 0.5s;
-pointer-events:none;
-}
-
-.card:hover + .title{
-  top:100%;
-  color: #4CAF50;
-  /* font-size: 19px; */
-  /* font-weight: bolder; */
-  transition-duration: 0.5s;
-  
-  /* 
-  transform: translate(0, -150px);
-  -webkit-transform: translate(0,-150px); */
-
-}
-
-.image-link {
-position: absolute;
-width: 150px;
-height: 230px;
-z-index: 998;
-}
+    .trash:hover {
+      cursor: pointer;
+      background-image: url("/img/rtrash.png");
+    }
+    
+    .pen:hover{
+      background-image: url("/img/gpen.png");
+    }
+    
+    .bookmark:hover{
+      cursor: pointer;
+      background-image: url("/img/gbook.png");
+    }
+    
+    .bookmark-checked:hover{
+      cursor: pointer;
+      background-image: url("/img/wbook.png");
+    }
+    
+    .trash a, 
+    .pen a, 
+    .bookmark a,
+    .bookmark-checked a {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      z-index: 99999;
+    }

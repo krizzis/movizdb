@@ -1,9 +1,10 @@
 .add-form {
-    position: absolute;
+    position: relative;
     width: 20rem;
     max-width: 90%;
     top: 200px;
     left: 40%;
+    display: inline;
 }
 
 
