@@ -164,6 +164,7 @@ p {
 }
 
 .cast-item .name {
+    margin-top: 5px;
     font-weight: bold;
 }
 

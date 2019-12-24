@@ -41,7 +41,6 @@ exports.getMoviesPage = (req, res, next) => {
                 movie.cast.push({id: i.id, cast_id: i.cast.cast_id, name: i.fullname, photo: i.imageUrl, position: i.cast.job ? i.cast.job : i.cast.character})
               })
               movie.cast.sort((a, b) => a.cast_id - b.cast_id);
-              console.log(movie.cast)
               return movie
             })
               .then(movie => {
