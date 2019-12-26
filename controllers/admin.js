@@ -15,7 +15,7 @@ const apiKey = '7b3e52648db3d7870c421ac2f639f6a3';
 // };
 
 exports.getAdminPage = (req, res, next) => {
-  admin = parseInt(req.cookies.isAdmin);
+  const admin = parseInt(req.cookies.isAdmin);
   res.render('./admin/getmovie', {
     "pageTitle": "Admin page",
     "menu": "admin",

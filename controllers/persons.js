@@ -1,12 +1,9 @@
 const Person = require('../models/person');
 
-var admin = 0;
-
   exports.getPersonsPage = (req, res, next) => {
-    admin = parseInt(req.cookies.isAdmin);
+    const admin = parseInt(req.cookies.isAdmin);
     Person.findAll()
     .then(persons => {
-      // console.log(JSON.stringify(persons));
       res.render('persons/persons', {
         "pageTitle": "Persons",
         "menu": "persons",
@@ -19,7 +16,7 @@ var admin = 0;
   };
 
   exports.getPersonDetailsPage = (req, res, next) => {
-    admin = parseInt(req.cookies.isAdmin);
+    const admin = parseInt(req.cookies.isAdmin);
     const id = req.params.itemId;
     let item = {};
     Person.findByPk(id)
@@ -72,34 +69,3 @@ var admin = 0;
       })
     })
   };
-
-  // exports.postFavoriteShow = (req, res, next) => {
-  //   const itemId = req.params.itemId;
-  //   let fetchedFavorites;
-  //   req.user.getFavorite()
-  //     .then(favorite =>{
-  //       fetchedFavorites = favorite;
-  //       return favorite.getShows({where: {id: itemId}});
-  //     })
-  //     .then(items => {
-  //       let item;
-  //       if (items.length > 0) {
-  //         item = items[0];
-  //       }
-  //       if (item){
-  //         return item.favoriteShow.destroy();
-  //       }
-  //       return Show.findByPk(itemId)
-  //         .then(item => {
-  //           return fetchedFavorites.addShow(item);
-  //         })
-  //         .catch(err => {
-  //         })
-  //     })
-  //     .then(() => {
-  //       res.redirect('back')}
-  //       )
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // };

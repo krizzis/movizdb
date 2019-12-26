@@ -2,11 +2,9 @@ const Movie = require('../models/movie');
 const Show = require('../models/show');
 const Favorite = require('../models/fav');
 
-var admin = 0;
-
 exports.getHomePage = (req, res, next) => {
   const itemCount = 6;
-  admin = parseInt(req.cookies.isAdmin);
+  const admin = parseInt(req.cookies.isAdmin);
   Promise.all([
     Movie.findAll({
       limit: itemCount,
@@ -28,7 +26,6 @@ exports.getHomePage = (req, res, next) => {
     })
   ])
     .then(items => {
-      console.log(req.cookies.isAdmin)
       res.render('home', {
         "pageTitle": "Main page",
         "menu": "home",
@@ -44,7 +41,7 @@ exports.getHomePage = (req, res, next) => {
 
 
 exports.getFavorite = (req, res, next) => {
-  admin = parseInt(req.cookies.isAdmin);
+  const admin = parseInt(req.cookies.isAdmin);
   Promise.all([
     req.user.getFavorite()
       .then(favorite => {
