@@ -8,6 +8,11 @@ exports.getLoginPage = (req, res, next) => {
 }
 
 exports.postLogin = (req, res, next) => {
-    res.setHeader('Set-Cookie', 'isAdmin=1');
+    req.session.isAdmin = 1;
     res.redirect('/');
+}
+
+exports.getLogout = (req, res, next) => {
+    req.session.isAdmin = 0
+    res.redirect('/')
 }

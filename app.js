@@ -42,7 +42,6 @@ const errorController = require('./controllers/errors');
 
 app.use(cookieParser());
 app.use((req, res, next) => {
-    req.session.test = true;
     User.findByPk(1)
         .then(user => {
             req.user = user;

@@ -17,9 +17,9 @@ block nav
             li(class=(isAdmin===1 ? "hide" : ""))
                 a(href="/favorite" class=(menu==='favorite' ? 'active' : "")) Favorite
             li.right
-                a.isDisabled Sign Up
+                a(href="/login/logout" class=(isAdmin===1 ? "" : "isDisabled")) Sign out
             li.right
-                a(href="/login" class=(menu==='login' ? 'active' : "")) Sing In
+                a(href="/login" class=(menu==='login' ? 'active' : "") class=(isAdmin===1 ? "isDisabled" : "")) Sing In
             li.right(class=(isAdmin===1 ? "" : "hide"))
                 a(href="/admin" class=(menu==='admin' ? 'active' : ""))  Admin
 

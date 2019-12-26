@@ -3,7 +3,7 @@ const Persons = require('../models/person');
 const Cast = require('../models/cast');
 
 exports.getMoviesPage = (req, res, next) => {
-    const admin = parseInt(req.cookies.isAdmin);
+    const admin = req.session.isAdmin;
     Movie.findAll()
       .then(movies => {
         res.render('movies/movies', {
@@ -19,7 +19,7 @@ exports.getMoviesPage = (req, res, next) => {
   };
 
   exports.getMovieDetailsPage = (req, res, next) => {
-    const admin = parseInt(req.cookies.isAdmin);
+    const admin = req.session.isAdmin;
     const id = req.params.itemId;
     let item = {};
     Movie.findByPk(id)

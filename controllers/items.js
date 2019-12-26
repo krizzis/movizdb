@@ -4,7 +4,7 @@ const Favorite = require('../models/fav');
 
 exports.getHomePage = (req, res, next) => {
   const itemCount = 6;
-  const admin = parseInt(req.cookies.isAdmin);
+  const admin = req.session.isAdmin;
   Promise.all([
     Movie.findAll({
       limit: itemCount,
@@ -41,7 +41,7 @@ exports.getHomePage = (req, res, next) => {
 
 
 exports.getFavorite = (req, res, next) => {
-  const admin = parseInt(req.cookies.isAdmin);
+  const admin = req.session.isAdmin;
   Promise.all([
     req.user.getFavorite()
       .then(favorite => {
