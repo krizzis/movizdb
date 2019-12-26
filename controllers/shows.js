@@ -1,9 +1,10 @@
 const Show = require('../models/show');
 const Favorite = require('../models/fav');
 
-const admin = 0;
+var admin = 0;
 
   exports.getShowsPage = (req, res, next) => {
+    admin = parseInt(req.cookies.isAdmin);
     Show.findAll({ include: [ {
       model: Favorite,
       where: {userId: req.user.id},
@@ -21,6 +22,7 @@ const admin = 0;
   };
 
   exports.getShowDetailsPage = (req, res, next) => {
+    admin = parseInt(req.cookies.isAdmin);
     const id = req.params.itemId;
     let item = {};
     Show.findByPk(id)
@@ -63,7 +65,8 @@ const admin = 0;
                   "pageTitle": item.title,
                   "menu": "shows",
                   "title": item.title,
-                  "item": item
+                  "item": item,
+                  "isAdmin": admin
                 });
               })
         .catch(err => {

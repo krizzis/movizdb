@@ -1,0 +1,11 @@
+extends layouts/nav.pug
+
+block styles
+    link(rel="stylesheet", href="/css/forms.css")
+
+block content
+    .container
+        form.login__form(action="/login", method="POST")
+            input.input__name(type="text", placeholder="username")
+            input.input__password(type="password", placeholder="password")
+            button.btn Login

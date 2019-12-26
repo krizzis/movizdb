@@ -1,8 +1,9 @@
 const Person = require('../models/person');
 
-const admin = 0;
+var admin = 0;
 
   exports.getPersonsPage = (req, res, next) => {
+    admin = parseInt(req.cookies.isAdmin);
     Person.findAll()
     .then(persons => {
       // console.log(JSON.stringify(persons));
@@ -18,6 +19,7 @@ const admin = 0;
   };
 
   exports.getPersonDetailsPage = (req, res, next) => {
+    admin = parseInt(req.cookies.isAdmin);
     const id = req.params.itemId;
     let item = {};
     Person.findByPk(id)
@@ -60,7 +62,8 @@ const admin = 0;
             "pageTitle": item.title,
             "menu": "persons",
             "title": item.title,
-            "item": item
+            "item": item,
+            "isAdmin": admin
           });
         })
         .catch(err => {

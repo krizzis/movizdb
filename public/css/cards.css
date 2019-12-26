@@ -58,18 +58,8 @@
   opacity: 1;
   z-index: 999;
 }
-
-.bookmark, .bookmark-checked {
-  width: 20px;
-  height: 20px;
-  position: absolute;
-  opacity: 0;
-  right: 15px;
-  top: 15px;
-  background-size: contain;
-  }
-
-  .trash, .bookmark, .bookmark-checked {
+  .trash, .bookmark, .bookmark-checked, .pen {
+    position: absolute;
     width: 20px;
     height: 20px;
     opacity: 0;
@@ -78,10 +68,20 @@
     border: none;
     padding: 0 0;
     outline: none;
+    right: 15px;
+    top: 15px;
     }
+
+  .trash {
+    left: 15px
+  }
 
     .bookmark {
       background-image: url("/img/wbook.png");
+    }
+
+    .trash {
+      background-image: url("/img/wtrash.png");
     }
     
     .bookmark-checked {
@@ -93,6 +93,10 @@
       background-image: url("/img/rtrash.png");
     }
     
+    .pen{
+      background-image: url("/img/wpen.png");
+    }
+
     .pen:hover{
       background-image: url("/img/gpen.png");
     }

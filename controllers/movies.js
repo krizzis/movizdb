@@ -2,12 +2,12 @@ const Movie = require('../models/movie');
 const Persons = require('../models/person');
 const Cast = require('../models/cast');
 
-const admin = 0;
+var admin = 0;
 
 exports.getMoviesPage = (req, res, next) => {
     Movie.findAll()
       .then(movies => {
-        // console.log(JSON.stringify(movies))
+        admin = parseInt(req.cookies.isAdmin);
         res.render('movies/movies', {
           "pageTitle": "Movies",
           "menu": "movies",
@@ -21,6 +21,7 @@ exports.getMoviesPage = (req, res, next) => {
   };
 
   exports.getMovieDetailsPage = (req, res, next) => {
+    admin = parseInt(req.cookies.isAdmin);
     const id = req.params.itemId;
     let item = {};
     Movie.findByPk(id)
@@ -63,7 +64,8 @@ exports.getMoviesPage = (req, res, next) => {
                   "pageTitle": item.title,
                   "menu": "movies",
                   "title": item.title,
-                  "item": item
+                  "item": item,
+                  "isAdmin": admin
                 });
         })
         .catch(err => {
