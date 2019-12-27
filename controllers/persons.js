@@ -1,14 +1,14 @@
 const Person = require('../models/person');
 
   exports.getPersonsPage = (req, res, next) => {
-    const admin = req.session.isAdmin;
+    const user = req.session.user ? req.session.user : null
     Person.findAll()
     .then(persons => {
       res.render('persons/persons', {
         "pageTitle": "Persons",
         "menu": "persons",
         "persons": persons,
-        "isAdmin": admin
+        "user": user
       });
     }).catch(err=>{
       console.log(err);
@@ -16,7 +16,7 @@ const Person = require('../models/person');
   };
 
   exports.getPersonDetailsPage = (req, res, next) => {
-    const admin = req.session.isAdmin;
+    const user = req.session.user ? req.session.user : null
     const id = req.params.itemId;
     let item = {};
     Person.findByPk(id)
@@ -60,7 +60,7 @@ const Person = require('../models/person');
             "menu": "persons",
             "title": item.title,
             "item": item,
-            "isAdmin": admin
+            "user": user
           });
         })
         .catch(err => {

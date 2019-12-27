@@ -41,16 +41,6 @@ const loginRouter = require('./routes/auth');
 const errorController = require('./controllers/errors');
 
 app.use(cookieParser());
-app.use((req, res, next) => {
-    User.findByPk(1)
-        .then(user => {
-            req.user = user;
-            next();
-        })
-        .catch(err => {
-            console.log(err);
-        });
-});
 
 app.use('/admin', adminRouter);
 app.use('/auth', loginRouter)
@@ -79,10 +69,6 @@ sequelize
     .sync(
         // {force: true}
     )
-    //  .then(() =>{
-    //     // sequelize_fixtures.loadFile(path.join(__dirname, 'data', 'fixtures', '*.json'),sequelize.models);
-    // }
-    // )
     .then(result => {
         return User.findByPk(1);
     })
@@ -94,11 +80,17 @@ sequelize
             return User.create({
                 id: 1,
                 username: 'admin',
-                email: 'admin@moviz.com'
+                password: 'q',
+                email: 'admin@moviz.com',
             })
     })
     .then(user => {
-        return user.createFavorite();
+        user.getFavorite().then(fav => {
+            if (fav) {
+                return fav
+            }
+            else return user.createFavorite();
+        })
     })
     .then(favorite => {
         app.listen(process.env.PORT || 3000);

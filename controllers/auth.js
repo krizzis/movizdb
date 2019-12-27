@@ -1,5 +1,7 @@
 const express = require('express');
 
+const User = require('../models/user');
+
 exports.getLoginPage = (req, res, next) => {
     res.render('./signin', {
         "pageTitle": "Login",
@@ -15,16 +17,52 @@ exports.getSignUpPage = (req, res, next) => {
 }
 
 exports.postLogin = (req, res, next) => {
-    req.session.isAdmin = 1;
-    res.redirect('/');
+    User.findByPk(1)
+        .then(user => {
+            req.user = user;
+            req.session.user = user
+            res.redirect('/')
+        })
+        .catch(err => {
+            console.log(err)
+        });
 }
 
 exports.postSignup = (req, res, next) => {
-    req.session.isAdmin = 1;
-    res.redirect('/');
+    const email = req.body.email;
+    const username = req.body.username;
+    const password = req.body.password;
+    const repassword = req.body.repassword;
+
+    User.findOne({
+        where: { email: email }
+    })
+        .then(user => {
+            if (user) {
+                return res.redirect("/auth/signup");
+            }
+            else {
+                return User.create({
+                    email: email,
+                    username: username,
+                    password: password
+                })
+            }
+        })
+        .then(user => {
+            return user.createFavorite();
+        })
+        .then(user => {
+            res.redirect('/')
+        })
+        .catch(err => {
+            console.log(err);
+        });
 }
 
 exports.getLogout = (req, res, next) => {
-    req.session.isAdmin = 0
-    res.redirect('/')
+    req.session.destroy((err) => {
+        console.log(err)
+        res.redirect('/')
+    })
 }

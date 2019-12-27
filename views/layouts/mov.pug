@@ -8,13 +8,13 @@
                                 img.card-image(src=movie.imageUrl)
                             else
                                 img.card-image(src="../img/poster-placeholder.png")
-                            if isAdmin
+                            if user && user.isAdmin
                                 .pen
                                     a(href="/admin/movie/" + movie.id + "/edit")
                                 form(action="/admin/movie/" + movie.id + "/delete/" , method="POST")
                                     button.trash
                             else
-                                form(action="/movie/" + movie.id + "/favorite/" , method="POST")
+                                form(action="/movie/" + movie.id + "/favorite/" , method="POST", class=(user ? "" : "hide"))
                                     button(class=(movie.favorites && movie.favorites.length > 0 ? "bookmark-checked" : "bookmark"))
                     .title #{movie.title}
     else

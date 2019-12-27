@@ -6,10 +6,10 @@ block styles
 block content
     .container
         form.signup__form(action="/auth/signup", method="POST")
-            input.input__email(type="email", placeholder="e-mail")
-            input.input__name(type="text", placeholder="username")
-            input.input__password(type="password", placeholder="password")
-            input.input__repassword(type="password", placeholder="confirm password")
+            input.input__email(type="email", placeholder="e-mail", name="email")
+            input.input__name(type="text", placeholder="username", name='username')
+            input.input__password(type="password", placeholder="password", name='password')
+            input.input__repassword(type="password", placeholder="confirm password", name='repassword')
             button.btn Sign Up
             p.message Already registered? 
                 a(href='/auth/login') Sign In
