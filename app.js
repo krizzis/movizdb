@@ -53,7 +53,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/admin', adminRouter);
-app.use('/login', loginRouter)
+app.use('/auth', loginRouter)
 app.use(itemsRouter);
 app.use(errorController.getNotFoundPage);
 

@@ -13,13 +13,14 @@ block nav
                 a(href="/shows" class=(menu==='shows' ? 'active' : "")) TV shows
             li
                 a(href="/persons" class=(menu==='persons' ? 'active' : "")) People
-                //- a.isDisabled People
             li(class=(isAdmin===1 ? "hide" : ""))
                 a(href="/favorite" class=(menu==='favorite' ? 'active' : "")) Favorite
-            li.right
-                a(href="/login/logout" class=(isAdmin===1 ? "" : "isDisabled")) Sign out
-            li.right
-                a(href="/login" class=(menu==='login' ? 'active' : "") class=(isAdmin===1 ? "isDisabled" : "")) Sing In
+            li.right(class=(isAdmin===1 ? "" : "hide"))
+                a(href="/auth/logout") Sign out
+            li.right(class=(isAdmin===1 ? "hide" : ""))
+                a(href="/auth/login" class=(menu==='login' ? 'active' : "")) Sing In
+            li.right(class=(isAdmin===1 ? "hide" : ""))
+                a(href="/auth/signup" class=(menu==='signup' ? 'active' : "")) Sing Up            
             li.right(class=(isAdmin===1 ? "" : "hide"))
                 a(href="/admin" class=(menu==='admin' ? 'active' : ""))  Admin
 

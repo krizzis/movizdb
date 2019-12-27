@@ -5,7 +5,11 @@ block styles
 
 block content
     .container
-        form.login__form(action="/login", method="POST")
+        form.login__form(action="/auth/login", method="POST")
             input.input__name(type="text", placeholder="username")
             input.input__password(type="password", placeholder="password")
             button.btn Login
+            p.message Not registered? 
+                a(href='/auth/signup') Create an account
+
+

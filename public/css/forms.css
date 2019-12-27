@@ -4,7 +4,7 @@
   margin: auto;
 }
 
-.login__form {
+.login__form, .signup__form {
   position: relative;
   z-index: 1;
   background: #fff;
@@ -15,7 +15,7 @@
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
-.login__form input {
+.login__form input, .signup__form input {
   font-family: "Roboto", sans-serif;
   outline: 0;
   background: #f2f2f2;
@@ -25,7 +25,7 @@
   padding: 15px;
 }
 
-.login__form button {
+.login__form button, .signup__form button {
   text-transform: uppercase;
   outline: 0;
   background: #4CAF50;
@@ -37,6 +37,19 @@
   cursor: pointer;
 }
 
-.login__form button:hover,.form button:active,.form button:focus {
+.btn:hover,.btn:active,.btn:focus
+ {
   background: #43A047;
 }
+
+.message {
+  margin: 15px 0 0;
+  color: #b3b3b3;
+  font-size: 12px;
+}
+
+.message a {
+  color: #43A047;
+  text-decoration: none;
+}
+

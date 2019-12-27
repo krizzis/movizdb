@@ -7,7 +7,19 @@ exports.getLoginPage = (req, res, next) => {
     });
 }
 
+exports.getSignUpPage = (req, res, next) => {
+    res.render('./signup', {
+        "pageTitle": "Sign Up",
+        "menu": "signup"
+    });
+}
+
 exports.postLogin = (req, res, next) => {
+    req.session.isAdmin = 1;
+    res.redirect('/');
+}
+
+exports.postSignup = (req, res, next) => {
     req.session.isAdmin = 1;
     res.redirect('/');
 }

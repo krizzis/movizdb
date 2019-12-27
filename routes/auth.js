@@ -3,8 +3,12 @@ const router = express.Router();
 
 const loginFormRouter = require('../controllers/auth');
 
-router.get('/', loginFormRouter.getLoginPage);
-router.post('/', loginFormRouter.postLogin);
+router.get('/login', loginFormRouter.getLoginPage);
+router.post('/login', loginFormRouter.postLogin);
+
+router.get('/signup', loginFormRouter.getSignUpPage);
+router.post('/signup', loginFormRouter.postSignup);
+
 router.get('/logout', loginFormRouter.getLogout);
 
 module.exports = router;
