@@ -58,6 +58,13 @@ li a:hover:not(.active) {
   background-color: #111;
 }
 
+li p {
+  display: block;
+  color: white;
+  font-weight: bold;
+  padding: 0px 16px;
+}
+
 .active {
     background-color: #4CAF50;
   }
