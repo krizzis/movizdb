@@ -3,10 +3,11 @@ const path = require('path');
 const express = require('express');
 
 const adminController =  require("../controllers/admin");
+const isAuth = require("../middleware/is_auth");
 
 const router = express.Router();
 
-router.get('/', adminController.getAdminPage);
+router.get('/', isAuth, adminController.getAdminPage);
 router.post('/add-movie', adminController.postNewMovieApi);
 router.post('/add-show', adminController.postNewShowApi);
 

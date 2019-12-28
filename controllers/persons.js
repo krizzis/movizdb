@@ -1,16 +1,14 @@
 const Person = require('../models/person');
 
-const admin = 0;
-
   exports.getPersonsPage = (req, res, next) => {
+    const user = req.session.user ? req.session.user : null
     Person.findAll()
     .then(persons => {
-      // console.log(JSON.stringify(persons));
       res.render('persons/persons', {
         "pageTitle": "Persons",
         "menu": "persons",
         "persons": persons,
-        "isAdmin": admin
+        "user": user
       });
     }).catch(err=>{
       console.log(err);
@@ -18,6 +16,7 @@ const admin = 0;
   };
 
   exports.getPersonDetailsPage = (req, res, next) => {
+    const user = req.session.user ? req.session.user : null
     const id = req.params.itemId;
     let item = {};
     Person.findByPk(id)
@@ -60,7 +59,8 @@ const admin = 0;
             "pageTitle": item.title,
             "menu": "persons",
             "title": item.title,
-            "item": item
+            "item": item,
+            "user": user
           });
         })
         .catch(err => {
@@ -69,34 +69,3 @@ const admin = 0;
       })
     })
   };
-
-  // exports.postFavoriteShow = (req, res, next) => {
-  //   const itemId = req.params.itemId;
-  //   let fetchedFavorites;
-  //   req.user.getFavorite()
-  //     .then(favorite =>{
-  //       fetchedFavorites = favorite;
-  //       return favorite.getShows({where: {id: itemId}});
-  //     })
-  //     .then(items => {
-  //       let item;
-  //       if (items.length > 0) {
-  //         item = items[0];
-  //       }
-  //       if (item){
-  //         return item.favoriteShow.destroy();
-  //       }
-  //       return Show.findByPk(itemId)
-  //         .then(item => {
-  //           return fetchedFavorites.addShow(item);
-  //         })
-  //         .catch(err => {
-  //         })
-  //     })
-  //     .then(() => {
-  //       res.redirect('back')}
-  //       )
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // };

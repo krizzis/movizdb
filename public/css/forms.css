@@ -1,45 +1,55 @@
-.add-form {
-    position: relative;
-    width: 20rem;
-    max-width: 90%;
-    top: 200px;
-    left: 40%;
-    display: inline;
+.container {
+  width: 360px;
+  padding: 8% 0 0;
+  margin: auto;
 }
 
+.login__form, .signup__form {
+  position: relative;
+  z-index: 1;
+  background: #fff;
+  max-width: 360px;
+  margin: 0 auto;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
 
-input[type=text], select {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    box-sizing: border-box;
-  }
+.login__form input, .signup__form input {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+}
 
-  select {
-      font-size: medium;
-  }
+.login__form button, .signup__form button {
+  text-transform: uppercase;
+  outline: 0;
+  background: #4CAF50;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
 
-  button {
-    background-color: white; /* Green */
-    border: none;
-    color: green;
-    padding: 16px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    transition-duration: 0.4s;
-    cursor: pointer;
-  }
+.btn:hover,.btn:active,.btn:focus
+ {
+  background: #43A047;
+}
 
-  button {
-    background-color: green; 
-    color: black; 
-    border: 2px solid green;
-  }
-  
-  button:hover {
-    background-color: white;
-    border: 2px solid green;
-  }
+.message {
+  margin: 15px 0 0;
+  color: #b3b3b3;
+  font-size: 12px;
+}
+
+.message a {
+  color: #43A047;
+  text-decoration: none;
+}
+

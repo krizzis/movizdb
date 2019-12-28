@@ -3,8 +3,8 @@
   }
   
   body {
-    font-family: Open-sans;
-    font-size: large;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
     margin:0;
     background-color: rgb(200, 200, 200);
   }
@@ -38,7 +38,7 @@ li {
   float: left;
 }
 
-li.hide{
+.hide{
   display: none;
 }
 
@@ -56,6 +56,13 @@ li a {
 
 li a:hover:not(.active) {
   background-color: #111;
+}
+
+li p {
+  display: block;
+  color: white;
+  font-weight: bold;
+  padding: 0px 16px;
 }
 
 .active {
