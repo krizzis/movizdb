@@ -1,4 +1,5 @@
 const express = require('express');
+const bcrypt = require('bcryptjs');
 
 const User = require('../models/user');
 
@@ -17,11 +18,33 @@ exports.getSignUpPage = (req, res, next) => {
 }
 
 exports.postLogin = (req, res, next) => {
-    User.findByPk(1)
+    const username = req.body.username;
+    const password = req.body.password;
+    console.log("username : " + username)
+    User.findOne({
+        where: { username: username }
+    })
         .then(user => {
-            req.user = user;
-            req.session.user = user
-            res.redirect('/')
+            if (!user) {
+                return res.redirect('/auth/login');
+            }
+            else {
+                bcrypt.compare(password, user.password)
+                    .then(result => {
+                        if (result) {
+                            req.user = user;
+                            req.session.user = user
+                            return req.session.save(err => {
+                                console.log(err)
+                                return res.redirect('/');
+                            })
+                        }
+                        return res.redirect('/auth/login');
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
+            }
         })
         .catch(err => {
             console.log(err)
@@ -42,18 +65,25 @@ exports.postSignup = (req, res, next) => {
                 return res.redirect("/auth/signup");
             }
             else {
-                return User.create({
-                    email: email,
-                    username: username,
-                    password: password
-                })
+                return bcrypt.hash(password, 12)
+                    .then(hash => {
+                        return User.create({
+                            email: email,
+                            username: username,
+                            password: hash
+                        })
+                    })
             }
         })
         .then(user => {
-            return user.createFavorite();
+            user.createFavorite();
+            return user;
         })
-        .then(user => {
-            res.redirect('/')
+        .then(() => {
+            // req.user = user;
+            // req.session.user = user
+            // res.redirect('/')
+            return res.redirect("/auth/login");
         })
         .catch(err => {
             console.log(err);
@@ -61,8 +91,7 @@ exports.postSignup = (req, res, next) => {
 }
 
 exports.getLogout = (req, res, next) => {
-    req.session.destroy((err) => {
-        console.log(err)
+    req.session.destroy(() => {
         res.redirect('/')
     })
 }
