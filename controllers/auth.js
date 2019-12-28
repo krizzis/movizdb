@@ -20,7 +20,6 @@ exports.getSignUpPage = (req, res, next) => {
 exports.postLogin = (req, res, next) => {
     const username = req.body.username;
     const password = req.body.password;
-    console.log("username : " + username)
     User.findOne({
         where: { username: username }
     })
@@ -35,7 +34,9 @@ exports.postLogin = (req, res, next) => {
                             req.user = user;
                             req.session.user = user
                             return req.session.save(err => {
-                                console.log(err)
+                                if (err) {
+                                    console.log(err)
+                                }
                                 return res.redirect('/');
                             })
                         }

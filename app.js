@@ -69,30 +69,7 @@ sequelize
     .sync(
         // {force: true}
     )
-    .then(result => {
-        return User.findByPk(1);
-    })
-    .then(user => {
-        if (user) {
-            return user;
-        }
-        else
-            return User.create({
-                id: 1,
-                username: 'admin',
-                password: 'q',
-                email: 'admin@moviz.com',
-            })
-    })
-    .then(user => {
-        user.getFavorite().then(fav => {
-            if (fav) {
-                return fav
-            }
-            else return user.createFavorite();
-        })
-    })
-    .then(favorite => {
+    .then(() => {
         app.listen(process.env.PORT || 3000);
     })
     .catch(err => {
