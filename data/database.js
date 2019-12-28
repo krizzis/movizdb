@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-Prod
+// Prod
 const sequelize = new Sequelize(
     '5IU45193DS',
     '5IU45193DS',
