@@ -67,7 +67,7 @@ Person.belongsToMany(Movie, { through: { model: Cast, unique: false } });
 
 sequelize
     .sync(
-        // {force: true}
+        {force: true}
     )
     .then(() => {
         app.listen(process.env.PORT || 3000);
