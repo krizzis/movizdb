@@ -3,18 +3,30 @@ const bcrypt = require('bcryptjs');
 
 const User = require('../models/user');
 
-exports.getLoginPage = (req, res, next) => {
-    res.render('./signin', {
-        "pageTitle": "Login",
-        "menu": "login"
+function renderLoginPage(res, err) {
+    res.render
+        ('./signin', {
+            "pageTitle": "Login",
+            "menu": "login",
+            "error": err
+        });
+}
+
+function renderSignupPage(res, data, err) {
+    res.render('./signup', {
+        "pageTitle": "Sign Up",
+        "menu": "signup",
+        "data": data,
+        "error": err
     });
 }
 
+exports.getLoginPage = (req, res, next) => {
+    renderLoginPage(res);
+}
+
 exports.getSignUpPage = (req, res, next) => {
-    res.render('./signup', {
-        "pageTitle": "Sign Up",
-        "menu": "signup"
-    });
+    renderSignupPage(res);
 }
 
 exports.postLogin = (req, res, next) => {
@@ -25,7 +37,8 @@ exports.postLogin = (req, res, next) => {
     })
         .then(user => {
             if (!user) {
-                return res.redirect('/auth/login');
+                const err = "Username or password is invalid";
+                return renderLoginPage(res, err);  
             }
             else {
                 bcrypt.compare(password, user.password)
@@ -40,7 +53,8 @@ exports.postLogin = (req, res, next) => {
                                 return res.redirect('/');
                             })
                         }
-                        return res.redirect('/auth/login');
+                        const err = "Username or password is invalid";
+                        return renderLoginPage(res, err);
                     })
                     .catch(err => {
                         console.log(err);
@@ -63,7 +77,11 @@ exports.postSignup = (req, res, next) => {
     })
         .then(user => {
             if (user) {
-                return res.redirect("/auth/signup");
+                const data = {};
+                data.username = username;
+                data.email = email;
+                const err = "Email already exist";
+                return renderSignupPage(res, data, err);
             }
             else {
                 return bcrypt.hash(password, 12)
@@ -81,9 +99,6 @@ exports.postSignup = (req, res, next) => {
             return user;
         })
         .then(() => {
-            // req.user = user;
-            // req.session.user = user
-            // res.redirect('/')
             return res.redirect("/auth/login");
         })
         .catch(err => {
