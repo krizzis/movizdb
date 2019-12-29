@@ -24,6 +24,7 @@ router.get('/persons/:itemId', personController.getPersonDetailsPage);
 
 router.get('/favorite', itemsController.getFavorite);
 
+router.get('/about', itemsController.getAbout);
 
 
 module.exports = router;

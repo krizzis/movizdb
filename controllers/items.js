@@ -84,3 +84,9 @@ exports.getFavorite = (req, res, next) => {
     console.log(err);
   })
 };
+
+exports.getAbout = (req, res, next) => {
+  res.render('about', {
+    "pageTitle": "About",
+  })
+}

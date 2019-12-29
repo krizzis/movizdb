@@ -13,9 +13,9 @@
     width: 90%;
     position: relative;
     padding-top: 3rem;
-    margin: auto;
+    margin: 0 auto -50px;
     overflow: hidden;
-    min-height: 90vh;
+    min-height: calc(100vh - 18px);
 }
 
 .header{
@@ -69,19 +69,25 @@ li p {
     background-color: #4CAF50;
   }
 
-.footer {
+footer {
     background-color: #333;
-    box-sizing: border-box;
-    padding: 0;
     color: white;
+    height: 50px;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
     position: relative;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    text-align: center;
-    min-height: 20px;
-    vertical-align: middle;
+    z-index: 10000;
+}
+
+.footer_text {
+  max-width: 60%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.footer_text a {
+  color: #43A047;
 }
 
 .isDisabled {
