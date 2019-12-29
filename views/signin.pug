@@ -8,8 +8,10 @@ block content
         form.login__form(action="/auth/login", method="POST")
             input.input__name(type="text", placeholder="username", name="username")
             input.input__password(type="password", placeholder="password", name="password")
+            .error_message #{error}
             button.btn Login
             p.message Not registered? 
                 a(href='/auth/signup') Create an account
+
 
 
