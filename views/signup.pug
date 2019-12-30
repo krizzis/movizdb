@@ -1,0 +1,30 @@
+extends layouts/nav.pug
+
+block styles
+    link(rel="stylesheet", href="/css/forms.css")
+
+block scripts
+    script(type="text/javascript", src="/js/signup-validation.js", defer)
+    
+
+block content
+    .container
+        form.signup__form(action="/auth/signup", method="POST")
+            input.input__email(type="email", placeholder="e-mail", name="email", value=data?data.email:"", oninput="checkEmail()", onfocusout="checkEmailFormat()")
+            .error_message(id="email_error") #{error}
+            input.input__name(type="text", placeholder="username", name='username',value=data?data.username:"", oninput="checkUsername()")
+            .error_message(id="username_error")
+            input.input__password(type="password", placeholder="password", name='password', oninput="checkPassword()", onfocusout="checkPasswordLength()")
+            .error_message(id="password_error")
+            input.input__repassword(type="password", placeholder="confirm password", name='repassword')
+            .error_message(id="repassword_error")
+            .check
+                input(type="checkbox", name="terms", value="1", id="terms", onclick="checkTerms()") 
+                p.message I have read and agree to the 
+                    a(href="#") terms of use
+            .error_message(id="terms_error")                    
+            button.btn(onclick="checkOnSubmit()") Sign Up
+            p.message Already registered? 
+                a(href='/auth/login') Sign In
+
+

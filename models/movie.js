@@ -19,8 +19,10 @@ const Movie = sequelize.define('movie', {
     duration: Sequielize.INTEGER,
     budget: Sequielize.INTEGER,
     revenue: Sequielize.INTEGER,
+    slogan: Sequielize.TEXT,
     description: Sequielize.TEXT,
-    rating: Sequielize.DOUBLE
+    rating: Sequielize.DOUBLE,
+    homepage: Sequielize.STRING
 });
 
 

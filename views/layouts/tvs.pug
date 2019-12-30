@@ -1,21 +1,21 @@
-if shows && shows.length > 0
-    .grid
-        each show in shows
-            .wrapper
-                .card
-                    a.image-link(href="/show/" + show.id)
-                    if show.imageUrl
-                        img.card-image(src=show.imageUrl)
-                    else
-                        img.card-image(src="../img/poster-placeholder.png")
-                    if isAdmin
-                        .pen
-                            a(href="/admin/show/" + show.id + "/edit")
-                        form(action="/admin/show/" + show.id + "/delete/" , method="POST")
-                            button.trash
-                    else
-                        form(action="/show/" + show.id + "/favorite/" , method="POST")
-                            button(class=(show.favorites && show.favorites.length > 0 ? "bookmark-checked" : "bookmark"))
-                .title #{show.title}
-else
-    h1 No shows added yet!
+.grid-container
+    if shows && shows.length > 0
+            each show in shows
+                .card-wrapper
+                    .card
+                        a.image-link(href="/show/" + show.id)
+                            if show.imageUrl
+                                img.card-image(src=show.imageUrl)
+                            else
+                                img.card-image(src="../img/poster-placeholder.png")
+                            if user && user.isAdmin
+                                .pen
+                                    a(href="/admin/show/" + show.id + "/edit")
+                                form(action="/admin/show/" + show.id + "/delete/" , method="POST")
+                                    button.trash
+                            else
+                                form(action="/show/" + show.id + "/favorite/" , method="POST", class=(user ? "" : "hide"))
+                                    button(class=(show.favorites && show.favorites.length > 0 ? "bookmark-checked" : "bookmark"))
+                    .title #{show.title}
+    else
+        h1 No shows added yet!

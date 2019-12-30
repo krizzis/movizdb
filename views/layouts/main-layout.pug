@@ -6,12 +6,17 @@ html(lang="en")
         meta(http-equiv="X-UA-Compatible", content="ie=edge")
         title #{pageTitle}
         link(rel="stylesheet", href="/css/main.css")
+        link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Montserrat&display=swap")
         block styles
+        block scripts
     body
         block nav
         
         main
             block content
 
-        //.footer
-            p Footer
+        footer 
+            .footer_text This is test site developed for Hillel QA course. For more information see 
+                a(href = "/about") About
+
+            
