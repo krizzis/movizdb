@@ -1,0 +1,8 @@
+.grid-container
+    if persons && persons.length > 0
+        each person in persons
+            .card-wrapper
+                .card
+                    a.image-link(href="/persons/" + person.id)
+                        img.card-image(src=person.imageUrl)
+                .title #{person.fullname}

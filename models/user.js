@@ -12,7 +12,15 @@ const User = sequelize.define('user', {
         type: Sequielize.STRING,
         allowNull: false
     },
-    email: Sequielize.STRING
+    password: {
+        type: Sequielize.STRING,
+        allowNull: false
+    },    
+    email: Sequielize.STRING,
+    isAdmin: {
+        type: Sequielize.TINYINT,
+        defaultValue: 0
+    }
 });
 
 module.exports = User;

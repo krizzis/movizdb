@@ -1,0 +1,12 @@
+extends ../layouts/nav.pug
+
+block styles
+    link(rel="stylesheet", href="/css/forms.css")
+
+block content    
+    form.add-form(action="/admin/add-movie", method="POST")
+        input(type="text", id="id", name='id' required)
+        button Get movie
+    form.add-form(action="/admin/add-show", method="POST")
+        input(type="text", id="id", name='id' required)
+        button Get show
