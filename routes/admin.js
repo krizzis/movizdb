@@ -8,8 +8,9 @@ const isAuth = require("../middleware/is_auth");
 const router = express.Router();
 
 router.get('/', isAuth, adminController.getAdminPage);
-router.post('/add-movie', adminController.postNewMovieApi);
-router.post('/add-show', adminController.postNewShowApi);
+router.get('/api', isAuth, adminController.getAdminPageApi);
+router.post('/add-movie-api', adminController.postNewMovieApi);
+router.post('/add-show-api', adminController.postNewShowApi);
 
 router.get('/movie/:itemId/edit', adminController.getMovieEditPage);
 router.post('/movie/:itemId/', adminController.postEditedMovie);

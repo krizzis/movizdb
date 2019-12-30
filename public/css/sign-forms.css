@@ -1,0 +1,84 @@
+.container {
+  width: 360px;
+  padding: 8% 0 0;
+  margin: auto;
+}
+
+.login__form, .signup__form {
+  position: relative;
+  z-index: 1;
+  background: #fff;
+  max-width: 360px;
+  margin: 0 auto;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.login__form input, .signup__form input {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+}
+
+.login__form button, .signup__form button {
+  text-transform: uppercase;
+  outline: 0;
+  background: #4CAF50;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+
+.btn:hover,.btn:active,.btn:focus
+ {
+  background: #43A047;
+}
+
+
+.message {
+  margin: 15px 0 0;
+  color: #b3b3b3;
+  font-size: 12px;
+  text-align: left;
+  margin-left: 25px;
+}
+
+.message a {
+  color: #43A047;
+  text-decoration: none;
+  margin-bottom: 25px;
+}
+
+.error_message {
+  font-family: "Roboto", sans-serif;
+  font-size: 12px;
+  color: red;
+  z-index: 333;
+  text-align: left;
+  margin-bottom: 12px;
+}
+
+.check {
+    white-space: nowrap;
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.check input {
+  position: absolute;
+  left: 0px;
+  width: 20px;
+}
+
+.check p {
+  font-size: 12px;
+  font-family: "Roboto", sans-serif;
+}
