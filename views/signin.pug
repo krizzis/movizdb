@@ -8,6 +8,9 @@ block content
         form.login__form(action="/auth/login", method="POST")
             input.input__name(type="text", placeholder="username", name="username")
             input.input__password(type="password", placeholder="password", name="password")
+            .check
+                input(type="checkbox", name="terms", value="1", id="terms", onclick="checkTerms()") 
+                p.message Remember me
             .error_message #{error}
             button.btn Login
             p.message Not registered? 
