@@ -1,0 +1,18 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-width: 100%;
+    min-height: 100%;
+    grid-gap: 1em;
+    grid-auto-rows: minmax(auto auto);
+}
+
+.container div {
+    border: 1px dotted black;
+}

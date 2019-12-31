@@ -1,0 +1,28 @@
+extends ../layouts/nav.pug
+
+block styles
+    link(rel="stylesheet", href="/css/details.css")
+    link(rel="stylesheet", href="/css/stars.css")
+    link(rel="stylesheet", href="/css/new-form.css")
+
+block content
+    .container
+        .box.box1.one Box 1
+        .box.box2.two
+            .item.fl
+                .flag1 usa
+                .flag1 usa
+            .item 
+                input.title(type='text', placeholder="Enter title")
+            .item.slogan 
+                input.slogan(type='text', placeholder="Enter Slogan")
+            .item.genres
+                span Genre1
+                span Genre2
+            .item Raiting
+            .item Overview
+            .item
+                textarea.description(placeholder="Enter description")
+        .box.box3.one Box 3
+        .box.box5.one
+            .card
