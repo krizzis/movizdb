@@ -4,15 +4,20 @@
     box-sizing: border-box;
 }
 
-.container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    min-width: 100%;
-    min-height: 100%;
-    grid-gap: 1em;
-    grid-auto-rows: minmax(auto auto);
+html, body {
+    width: 100%;
+    height: 100%;
 }
 
-.container div {
+.main__container {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 100%;
+    min-width: 100%;
+    min-height: 100%;
+
+}
+
+.main__container div {
     border: 1px dotted black;
 }

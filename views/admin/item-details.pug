@@ -1,13 +1,24 @@
 extends ../layouts/nav.pug
 
 block styles
-    link(rel="stylesheet", href="/css/details.css")
+    //- link(rel="stylesheet", href="/css/details.css")
     link(rel="stylesheet", href="/css/stars.css")
     link(rel="stylesheet", href="/css/new-form.css")
+    link(rel="stylesheet", href="/css/popup.css")
+block scripts
+    script(src="/js/set_raiting.js", defer)
+    script(src="/js/add-poster-popup.js", defer)
+    script(src="/js/add-genre.js", defer)
+    script(src="/js/add-cast.js", defer)
 
 block content
-    .container
-        .box.box1.one Box 1
+    include ./add-image-popup.pug
+    .form_container
+        .box.box0
+            .menu Menu
+        .box.box1 
+            .poster 
+                p Click to add
         .box.box2.two
             .item.fl
                 .flag1 usa
@@ -15,14 +26,23 @@ block content
             .item 
                 input.title(type='text', placeholder="Enter title")
             .item.slogan 
-                input.slogan(type='text', placeholder="Enter Slogan")
+                input.slogan__input(type='text', placeholder="Enter Slogan")
             .item.genres
-                span Genre1
-                span Genre2
-            .item Raiting
-            .item Overview
+                .add_genre Add genre
+            .item.raiting1
+                .raiting
+                    .container
+                        .progress
+                            .progress-bar(style=("--rating: 79; --fm: 180; --sl: 120; --sm:240"))
+                                p.raiting_mark
+                input(type="number", id="raiting_score", value=0, max="100")
+                
+            .item.overview Overview
             .item
-                textarea.description(placeholder="Enter description")
-        .box.box3.one Box 3
+                textarea.description(placeholder="Enter description", rows=5)
+        .box.box3.three Box 3
         .box.box5.one
-            .card
+            .cast__header
+                h2 Cast and crew
+            .add_card
+                p +
