@@ -131,11 +131,11 @@ p {
     margin: 2.5px 10px;
     line-height: 100%;
     max-height: 20px;
-    font-size: larger;
+    /* font-size: 16px; */
 }
 
 .key{
-    font-weight: bolder;
+    font-weight: 900;
 }
 
 .value {

@@ -19,6 +19,11 @@ exports.getAdminPage = (req, res, next) => {
   res.render('./admin/item-details', {
     "pageTitle": "Admin page",
     "menu": "admin",
+    "lang": [{"code": "en",
+              "name": "English"},
+            {"code": "de",
+             "name": "German"} 
+            ],
     "user": user
   });
 };

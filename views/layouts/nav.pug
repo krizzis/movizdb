@@ -12,7 +12,8 @@ block nav
             li
                 a(href="/shows" class=(menu==='shows' ? 'active' : "")) TV shows
             li
-                a(href="/persons" class=(menu==='persons' ? 'active' : "")) People
+                a.hide() People
+                //- a(href="/persons" class=(menu==='persons' ? 'active' : "")) People
             li(class=(user && user.isAdmin===0  ? "" : "hide"))
                 a(href="/favorite" class=(menu==='favorite' ? 'active' : "")) Favorite
             li.right(class=(user ? "" : "hide"))
