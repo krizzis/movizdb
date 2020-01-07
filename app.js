@@ -17,6 +17,7 @@ const MovieGenre = require('./models/movie-genre');
 const ShowGenre = require('./models/show-genre');
 const Person = require('./models/person');
 const Cast = require('./models/cast');
+const Language = require('./models/language');
 
 const app = express();
 const sessionStore = new SessionStore({
@@ -49,9 +50,8 @@ app.use(errorController.getNotFoundPage);
 
 
 
-Movie.belongsTo(User, { foreignKey: { allowNull: true } });
-Show.belongsTo(User, { foreignKey: { allowNull: true } });
 User.hasOne(Favorite);
+Language.hasOne(Movie, { foreignKey: "language" });
 Favorite.belongsToMany(Movie, { through: FavoriteMovie });
 Movie.belongsToMany(Favorite, { through: FavoriteMovie });
 Favorite.belongsToMany(Show, { through: FavoriteShow });
@@ -67,7 +67,7 @@ Person.belongsToMany(Movie, { through: { model: Cast, unique: false } });
 
 sequelize
     .sync(
-        // {force: true}
+        {force: true}
     )
     .then(() => {
         app.listen(process.env.PORT || 3000);
