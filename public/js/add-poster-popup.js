@@ -5,6 +5,7 @@ var popupForm = document.querySelector(".popup__form");
 var poster = document.querySelector(".poster");
 var input = document.querySelector(".url__input");
 var poster_text = document.querySelector(".poster p");
+var poster_image = "";
 
 var url_error = document.getElementById('url_error');
 
@@ -26,6 +27,7 @@ poster.onclick = function(){
     else {
         poster.style.backgroundImage  = "";
         imageSet = false;
+        poster_image = "";
         poster_text.textContent = 'Click to add';
         poster_text.style.color = 'black';
     }
@@ -36,7 +38,8 @@ add_btn.onclick = function(){
         var fileType = input.value.slice(-3);
         if (fileType == "png" || fileType == "jpg" ) {
             if (imageExists(input.value)) {
-                poster.style.backgroundImage  = "url('" + input.value + "')";
+                poster_image = input.value;
+                poster.style.backgroundImage  = "url('" + poster_image + "')";
                 closePopup();
                 poster_text.textContent = 'Click to remove';
                 poster_text.style.fontWeight = "900";

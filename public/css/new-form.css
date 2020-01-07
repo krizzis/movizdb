@@ -131,9 +131,6 @@ main {
     min-width: 50px;
   }
 
-  .genre:after {
-      content: "x";
-  }
   .genre span {
       background: transparent;
       outline: none;

@@ -2,6 +2,7 @@ const Movie = require('../models/movie');
 const Show = require('../models/show');
 const Genre = require('../models/genre');
 const Person = require('../models/person');
+const Language = require('../models/language');
 
 const superagent = require('superagent');
 
@@ -16,16 +17,15 @@ const apiKey = '7b3e52648db3d7870c421ac2f639f6a3';
 
 exports.getAdminPage = (req, res, next) => {
   const user = req.session.user ? req.session.user : null
-  res.render('./admin/item-details', {
-    "pageTitle": "Admin page",
-    "menu": "admin",
-    "lang": [{"code": "en",
-              "name": "English"},
-            {"code": "de",
-             "name": "German"} 
-            ],
-    "user": user
-  });
+
+  Language.findAll({ order: [['code', 'ASC']]}).then(lang => {
+    res.render('./admin/item-details', {
+      "pageTitle": "Admin page",
+      "menu": "admin",
+      "lang": lang,
+      "user": user
+    });
+  })
 };
 
 exports.getAdminPageApi = (req, res, next) => {

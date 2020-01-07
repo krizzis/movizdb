@@ -1,7 +1,6 @@
 extends ../layouts/nav.pug
 
 block styles
-    //- link(rel="stylesheet", href="/css/details.css")
     link(rel="stylesheet", href="/css/stars.css")
     link(rel="stylesheet", href="/css/new-form.css")
     link(rel="stylesheet", href="/css/popup.css")
@@ -9,7 +8,7 @@ block scripts
     script(src="/js/set_raiting.js", defer)
     script(src="/js/add-poster-popup.js", defer)
     script(src="/js/add-genre.js", defer)
-    script(src="/js/add-cast.js", defer)
+    script(src="/js/post-item.js", defer)
 
 block content
     include ./add-image-popup.pug
@@ -22,9 +21,6 @@ block content
             .poster 
                 p Click to add
         .box.box2
-            //- .item.fl
-            //-     .flag1 usa
-            //-     .flag1 usa
             .item 
                 input.title(type='text', placeholder="Enter title")
             .item.slogan 
@@ -77,8 +73,3 @@ block content
                     .key Revenue
                     .value
                         input.revenue__input(type="number")
-        //- .box.box5.one
-        //-     .cast__header
-        //-         h2 Cast and crew
-        //-     .add_card
-        //-         p +
