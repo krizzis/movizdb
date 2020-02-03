@@ -37,6 +37,22 @@ exports.getAdminPageApi = (req, res, next) => {
   });
 };
 
+exports.postNewItem = (req, res, next) => {
+  Movie.create({
+    title: req.body.title,
+    imageUrl: req.body.imageUrl,
+    status: req.body.status,
+    release_date: req.body.release_date,
+    language: req.body.language,
+    duration: req.body.duration,
+    budget: req.body.budget,
+    revenue: req.body.revenue,
+    slogan: req.body.slogan,
+    description: req.body.description,
+    rating: req.body.rating
+  })
+};
+
 // exports.postNewItem = (req, res, next) => {
 //   if (req.body.type === 'movies') {
 //     console.log("User: " + req.user);

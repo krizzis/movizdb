@@ -11,12 +11,8 @@ var budget = document.querySelector('.budget__input');
 var revenue = document.querySelector('.revenue__input');
 
 submit.onclick = function() {
-    var data = new FormData();
 
-
-    data.append("title", title.value);
-    data.append("slogan", slogan.value);
-    data.append("imageUrl", poster_image);
+    var data = {};
 
     var genres_items = []
     for (var i = 0; i < genres.childNodes.length; i++) {
@@ -26,20 +22,22 @@ submit.onclick = function() {
         }
     }
 
-    data.append("genres", genres_items);
-    data.append("rating", raiting.value);
-    data.append("description", description.value);
-    data.append("status", status_field.options[status_field.selectedIndex].value);
-    data.append("release_date", release_date.value);
-    data.append("language", language.options[status_field.selectedIndex].value);
-    data.append("duration", duration.value);
-    data.append("budget", budget.value);
-    data.append("revenue", revenue.value);
-    console.log();
-    
+    data.title = title.value;
+    data.slogan = slogan.value;
+    data.imageUrl = poster_image;
+    data.genres = genres_items;
+    data.rating = raiting.value;
+    data.description = description.value;
+    data.status = status_field.options[status_field.selectedIndex].value;
+    data.release_date = release_date.value === "" ? null : release_date.value;
+    data.language = language.options[status_field.selectedIndex].value === "" ? null : language.options[status_field.selectedIndex].value;
+    data.duration = duration.value === "" ? null : duration.value;
+    data.budget = budget.value === "" ? null : budget.value;
+    data.revenue = revenue.value === "" ? null : revenue.value;
     
 
     var xhr = new XMLHttpRequest();
     xhr.open('POST', 'admin/', true);
-    xhr.send(data);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify(data));
 }
